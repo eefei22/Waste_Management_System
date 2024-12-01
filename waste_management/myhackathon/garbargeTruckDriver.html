@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden; /* Prevents the page from scrolling */
+    }
+
+    /* Sidebar Menu */
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+      position: fixed; /* Sidebar fixed on the left */
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .sidebar h1 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .menu-item {
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .menu-item:hover {
+      background-color: #34495e;
+    }
+
+    .menu-item.active {
+      background-color: #16a085;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 250px; /* This pushes content right to make space for sidebar */
+      flex: 1;
+      padding: 20px;
+      background-color: #f8f9fa;
+      overflow-y: auto; /* Allows scrolling if the content overflows */
+    }
+
+    .content-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .content-description {
+      font-size: 16px;
+      color: #7f8c8d;
+    }
+
+    /* Flex Layout for Content */
+    .container {
+      display: flex;
+      flex: 1;
+      height: 100%; /* Ensures the container takes up the full screen height */
+    }
+
+    /* Left Column for route pic */
+	.left {
+ 	 display: flex;
+  	flex-direction: column;
+  	gap: 10px;
+  	width: 55%; /* Left column takes 55% of the screen width */
+  	padding: 10px;
+ 	 overflow-y: auto;
+ 	 align-items: center; /* Center align content horizontally */
+	}
+
+	.left img {
+	  width: auto; /* Keeps the image at its original width */
+ 	 height: auto; /* Keeps the image at its original height */
+ 	 max-width: none; /* Prevents the image from scaling down */
+  	max-height: none; /* Prevents the image from scaling down */
+  	display: block; /* Ensures the image is displayed as a block element */
+  	margin: 0 auto; /* Centers the image horizontally */
+	}
+
+
+    /* Center Column for Pic1, Pic2, Pic3, Pic4 */
+    .center {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 15%; /* Center column takes 15% of the screen width */
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    /* General Image Styles for Map and Route */
+	img {
+  	 width: auto; /* Keeps the image at its original width */
+ 	 height: auto; /* Keeps the image at its original height */
+ 	 max-width: none; /* Prevents the image from being resized */
+ 	 max-height: none; /* Prevents the image from being resized */
+ 	 display: block; /* Ensures the image is displayed as a block element */
+ 	 margin: 0 auto; /* Centers the image horizontally */
+	}
+
+	/* Map Container Style */
+	.map-container {
+	  display: flex;
+ 	  justify-content: center; /* Centers the map image horizontally */
+ 	  margin-top: 20px; /* Adds some space at the top */
+ 	}
+
+
+    /* Right Column for Chatbox in Chat Page */
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 30%; /* Chatbox takes 30% of the screen width */
+  background-color: #f9f9f9;
+  padding: 10px; /* Same padding as in the Home page */
+  border-left: 1px solid #ddd;
+  height: 100%; /* Same height as in the Home page */
+  box-sizing: border-box;
+}
+
+/* Chat Messages */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding: 10px; /* Same padding as in the Home page */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+}
+
+/* Input and Button */
+#chat-input {
+  width: 100%;
+  padding: 8px; /* Same padding as in the Home page */
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 8px 15px; /* Same padding as in the Home page */
+  border: none;
+  border-radius: 5px;
+  background-color: #16a085;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1abc9c;
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h1>Garbage Truck Driver</h1>
+    <div class="menu-item active" onclick="navigate('home')">Home</div>
+    <div class="menu-item" onclick="navigate('map')">Map</div>
+    <div class="menu-item" onclick="navigate('chat')">Chat</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="main-content">
+    <div class="content-title">Welcome to the Home Page</div>
+    <div class="content-description">Select a menu option to view content here.</div>
+  </div>
+
+<script>
+  // Navigation functionality
+  function navigate(section) {
+    // Remove 'active' class from all menu items
+    document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+
+    // Add 'active' class to the clicked menu item
+    const clickedItem = Array.from(document.querySelectorAll('.menu-item'))
+      .find(item => item.innerText.toLowerCase() === section.toLowerCase());
+    if (clickedItem) clickedItem.classList.add('active');
+
+    // Update the main content dynamically
+    const content = document.getElementById('main-content');
+    switch (section) {
+      case 'home':
+        content.innerHTML = `
+          <div class="content-title">Home Page</div>
+          <div class="container">
+            <div class="left">
+              <img src="img-optimize.png" alt="route">
+            </div>
+            <div class="center">
+              <img src="garbagepic1.jpg" alt="CCTV1">
+              <img src="garbagepic2.jpg" alt="CCTV2">
+              <img src="garbagepic3.jpg" alt="CCTV3">
+              <img src="garbagepic4.jpg" alt="CCTV4">
+            </div>
+            <div class="chatbox">
+              <h2>AI Chatbox</h2>
+              <div class="chat-messages" id="chat-messages"></div>
+              <input type="text" id="chat-input" placeholder="Type your message here..." />
+              <button onclick="sendMessage()">Send</button>
+            </div>
+          </div>
+        `;
+        break;
+
+      case 'map':
+        content.innerHTML = `
+          <div class="content-title">Map Page</div>
+          <div class="content-description">This section displays the AI Route.</div>
+          <div class="map-container">
+            <img src="img-optimize.png" alt="route">
+          </div>
+        `;
+        break;
+
+      case 'chat':
+        content.innerHTML = `
+          <div class="content-title">Chat Page</div>
+          <div class="content-description">Chat with AI.</div>
+          <div class="chatbox">
+            <h2>AI Chatbox</h2>
+            <div class="chat-messages" id="chat-messages"></div>
+            <input type="text" id="chat-input" placeholder="Type your message here..." />
+            <button onclick="sendMessage()">Send</button>
+          </div>
+        `;
+        break;
+
+      default:
+        content.innerHTML = `<div class="content-title">404 Page Not Found</div>`;
+    }
+  }
+
+  // Set the default page to 'home' on page load
+  window.onload = function() {
+    navigate('home');
+  };
+
+  function sendMessage() {
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+
+    // User message
+    const userMessage = document.createElement('div');
+    userMessage.textContent = chatInput.value;
+    userMessage.style.textAlign = 'right';
+    userMessage.style.margin = '5px 0';
+    userMessage.style.color = '#2c3e50';
+    chatMessages.appendChild(userMessage);
+
+    // AI response (simulated)
+    setTimeout(() => {
+      const aiResponse = document.createElement('div');
+      aiResponse.textContent = 'AI: I am here to assist you!';
+      aiResponse.style.textAlign = 'left';
+      aiResponse.style.margin = '5px 0';
+      aiResponse.style.color = '#16a085';
+      chatMessages.appendChild(aiResponse);
+
+      // Scroll to the bottom of the chat
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 500);
+
+    // Clear input field
+    chatInput.value = '';
+  }
+</script>
+
+  </body>
+</html>
+

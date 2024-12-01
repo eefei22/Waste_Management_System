@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truck Activities</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Sidebar Style */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #333;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .sidebar .menu-item {
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #575757;
+        }
+
+        .sidebar .menu-item.active {
+            background-color: #555;
+        }
+
+        table {
+            border-collapse: collapse;
+            justify-content: center;
+            width: 60%;
+            text-align: left;
+            margin: auto;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .truck-id a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .truck-id a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>SuperAdmin</h2>
+        <a href="/" class="menu-item">Home</a> 
+        <a href="/truckList" class="menu-item">Map</a> 
+        <div class="menu-item" onclick="navigate('chat')">Chat</div>
+        <div class="menu-item" onclick="navigate('record')">Record</div>
+        <div class="menu-item" onclick="navigate('penalty')">Penalty</div>
+        <div class="menu-item" onclick="navigate('concession')">Concession</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Truck ID</th>
+                <th>Truck Load</th>
+                <th>Truck Location</th>
+                <th>Council</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="truck-id"><a href="/truckActivity/1">T001</a></td>
+                <td>200kg</td>
+                <td>Petaling Jaya, SS17</td>
+                <td>MBPJ</td>
+            </tr>
+            <tr>
+                <td class="truck-id"><a href="/truckActivity/2">T002</a></td>
+                <td>350kg</td>
+                <td>Subang Jaya, USJ5</td>
+                <td>MBSJ</td>
+            </tr>
+            <tr>
+                <td class="truck-id"><a href="/truckActivity/3">T003</a></td>
+                <td>180kg</td>
+                <td>Shah Alam, Seksyen 7</td>
+                <td>MBSA</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
